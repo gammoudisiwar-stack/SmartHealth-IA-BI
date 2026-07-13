@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "bf2ff878468d458c91b8",
+  "position": {
+    "x": 432,
+    "y": 150,
+    "z": 5,
+    "width": 380,
+    "height": 270,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_case_mix"
+                    }
+                  },
+                  "Property": "anemia_type"
+                }
+              },
+              "queryRef": "vw_case_mix.anemia_type",
+              "nativeQueryRef": "anemia_type"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_case_mix"
+                        }
+                      },
+                      "Property": "n_patients"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(vw_case_mix.n_patients)",
+              "nativeQueryRef": "n_patients"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

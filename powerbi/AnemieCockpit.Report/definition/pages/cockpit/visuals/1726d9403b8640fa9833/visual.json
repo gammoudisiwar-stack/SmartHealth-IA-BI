@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "1726d9403b8640fa9833",
+  "position": {
+    "x": 16,
+    "y": 24,
+    "z": 0,
+    "width": 300,
+    "height": 110,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_patient_ledger"
+                    }
+                  },
+                  "Property": "Consultations"
+                }
+              },
+              "queryRef": "vw_patient_ledger.Consultations",
+              "nativeQueryRef": "Consultations"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

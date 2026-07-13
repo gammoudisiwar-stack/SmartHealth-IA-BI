@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "969e3b73023842a3ba0d",
+  "position": {
+    "x": 828,
+    "y": 150,
+    "z": 6,
+    "width": 436,
+    "height": 270,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_urgency_mix"
+                    }
+                  },
+                  "Property": "urgency"
+                }
+              },
+              "queryRef": "vw_urgency_mix.urgency",
+              "nativeQueryRef": "urgency"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_urgency_mix"
+                        }
+                      },
+                      "Property": "n_patients"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(vw_urgency_mix.n_patients)",
+              "nativeQueryRef": "n_patients"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

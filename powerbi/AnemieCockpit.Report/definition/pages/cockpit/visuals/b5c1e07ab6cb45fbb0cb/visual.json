@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "b5c1e07ab6cb45fbb0cb",
+  "position": {
+    "x": 952,
+    "y": 24,
+    "z": 3,
+    "width": 312,
+    "height": 110,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_patient_ledger"
+                    }
+                  },
+                  "Property": "TauxConformiteSLA"
+                }
+              },
+              "queryRef": "vw_patient_ledger.TauxConformiteSLA",
+              "nativeQueryRef": "TauxConformiteSLA"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

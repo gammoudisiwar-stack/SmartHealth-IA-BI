@@ -1,0 +1,48 @@
+table vw_equity_gap
+	lineageTag: 2dfa8150-9ad4-40b9-a123-c89dc1fd6dcf
+
+	column bande_age
+		dataType: string
+		lineageTag: df0d09f1-bcc6-46c6-af6c-4021a4e80a44
+		summarizeBy: none
+		sourceColumn: bande_age
+
+	column sexe
+		dataType: string
+		lineageTag: b8981335-9b39-4f22-b2db-f87d19db5157
+		summarizeBy: none
+		sourceColumn: sexe
+
+	column n_patients
+		dataType: int64
+		lineageTag: 78d890c3-b65d-464f-adc5-9fd36fd4279b
+		summarizeBy: none
+		sourceColumn: n_patients
+
+	column taux_detection_ia
+		dataType: double
+		lineageTag: 1025e9ff-8469-4381-8a9d-d42eb07c6fdf
+		summarizeBy: none
+		sourceColumn: taux_detection_ia
+
+	column taux_regle_oms
+		dataType: double
+		lineageTag: 92d99b45-acc8-4a8a-8060-1b15eff3d6e1
+		summarizeBy: none
+		sourceColumn: taux_regle_oms
+
+	column ecart_ia_oms
+		dataType: double
+		lineageTag: 857ac6e3-130e-4d97-9e46-6456d5f2b89b
+		summarizeBy: none
+		sourceColumn: ecart_ia_oms
+
+	partition vw_equity_gap = m
+		mode: import
+		source =
+			let
+			    Source = PostgreSQL.Database("localhost:5432", "anemia"),
+			    data = Source{[Schema="public", Item="vw_equity_gap"]}[Data]
+			in
+			    data
+

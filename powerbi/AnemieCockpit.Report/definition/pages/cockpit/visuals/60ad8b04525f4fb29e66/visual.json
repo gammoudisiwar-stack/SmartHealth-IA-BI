@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "60ad8b04525f4fb29e66",
+  "position": {
+    "x": 16,
+    "y": 150,
+    "z": 4,
+    "width": 400,
+    "height": 270,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_referral_funnel"
+                    }
+                  },
+                  "Property": "etape"
+                }
+              },
+              "queryRef": "vw_referral_funnel.etape",
+              "nativeQueryRef": "etape"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_referral_funnel"
+                        }
+                      },
+                      "Property": "n_patients"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(vw_referral_funnel.n_patients)",
+              "nativeQueryRef": "n_patients"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

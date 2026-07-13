@@ -1,0 +1,48 @@
+table vw_agent_daily
+	lineageTag: ce1e6f21-32d3-4ae4-a8d3-c73ac7c485f2
+
+	column jour
+		dataType: dateTime
+		lineageTag: 26d6cf53-597d-40f9-9041-262d8c8531f2
+		summarizeBy: none
+		sourceColumn: jour
+
+	column consultations
+		dataType: int64
+		lineageTag: 482ffeb2-8395-4aa4-b7fc-7d5a2019bbac
+		summarizeBy: none
+		sourceColumn: consultations
+
+	column cas_detectes
+		dataType: int64
+		lineageTag: 1d5a96ba-d59b-40c0-9fe8-97590fb6c766
+		summarizeBy: none
+		sourceColumn: cas_detectes
+
+	column cout_evite
+		dataType: double
+		lineageTag: 22bb509f-be1e-4db1-84d8-82b0c6cc3428
+		summarizeBy: none
+		sourceColumn: cout_evite
+
+	column delai_moyen_h
+		dataType: double
+		lineageTag: 28a9db78-bb5f-4b81-a6a4-c5ce2ce3506f
+		summarizeBy: none
+		sourceColumn: delai_moyen_h
+
+	column taux_sla
+		dataType: double
+		lineageTag: a2fad0b5-7c55-4025-a1f7-11e32d65a16c
+		summarizeBy: none
+		sourceColumn: taux_sla
+
+	partition vw_agent_daily = m
+		mode: import
+		source =
+			let
+			    Source = PostgreSQL.Database("localhost:5432", "anemia"),
+			    data = Source{[Schema="public", Item="vw_agent_daily"]}[Data]
+			in
+			    data
+

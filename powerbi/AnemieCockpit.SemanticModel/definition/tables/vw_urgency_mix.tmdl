@@ -1,0 +1,30 @@
+table vw_urgency_mix
+	lineageTag: ebb228db-170b-4a3a-95d9-28d8817e0891
+
+	column urgency
+		dataType: string
+		lineageTag: f77ce876-992a-41be-9de4-ece828caf4e9
+		summarizeBy: none
+		sourceColumn: urgency
+
+	column n_patients
+		dataType: int64
+		lineageTag: 37a3a73d-50f5-4e9b-b448-16d05a1c5f6a
+		summarizeBy: none
+		sourceColumn: n_patients
+
+	column part
+		dataType: double
+		lineageTag: f8ac3e2d-29f2-417d-97ed-097eda0c343a
+		summarizeBy: none
+		sourceColumn: part
+
+	partition vw_urgency_mix = m
+		mode: import
+		source =
+			let
+			    Source = PostgreSQL.Database("localhost:5432", "anemia"),
+			    data = Source{[Schema="public", Item="vw_urgency_mix"]}[Data]
+			in
+			    data
+

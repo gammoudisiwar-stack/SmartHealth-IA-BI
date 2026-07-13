@@ -1,0 +1,30 @@
+table vw_action_distribution
+	lineageTag: 0e84ed4e-54b5-4cfb-b3d0-e9a15c438369
+
+	column recommended_action
+		dataType: string
+		lineageTag: 81009506-9f0d-46ea-ac42-3035f7808f2a
+		summarizeBy: none
+		sourceColumn: recommended_action
+
+	column n_patients
+		dataType: int64
+		lineageTag: 79f08b82-381d-4a87-9c7a-3c59ac944984
+		summarizeBy: none
+		sourceColumn: n_patients
+
+	column part
+		dataType: double
+		lineageTag: 49244f43-11ff-4acf-845c-7e1a373f5ff2
+		summarizeBy: none
+		sourceColumn: part
+
+	partition vw_action_distribution = m
+		mode: import
+		source =
+			let
+			    Source = PostgreSQL.Database("localhost:5432", "anemia"),
+			    data = Source{[Schema="public", Item="vw_action_distribution"]}[Data]
+			in
+			    data
+

@@ -1,0 +1,30 @@
+table vw_case_mix
+	lineageTag: f7e8ff27-e4e9-4669-8785-a464b6f39d1e
+
+	column anemia_type
+		dataType: string
+		lineageTag: b6aaeb4a-28fe-4afd-b709-c648185864c5
+		summarizeBy: none
+		sourceColumn: anemia_type
+
+	column n_patients
+		dataType: int64
+		lineageTag: 3af35a0d-b506-4a03-96f4-bbf9f598fc9b
+		summarizeBy: none
+		sourceColumn: n_patients
+
+	column part
+		dataType: double
+		lineageTag: 0473eb8f-5348-4eb5-b443-b9817c6305ee
+		summarizeBy: none
+		sourceColumn: part
+
+	partition vw_case_mix = m
+		mode: import
+		source =
+			let
+			    Source = PostgreSQL.Database("localhost:5432", "anemia"),
+			    data = Source{[Schema="public", Item="vw_case_mix"]}[Data]
+			in
+			    data
+

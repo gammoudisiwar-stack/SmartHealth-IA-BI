@@ -1,0 +1,172 @@
+table vw_patient_ledger
+	lineageTag: 434c0209-ab5e-4da1-9ca6-0e00b0e57b12
+
+	column event_id
+		dataType: int64
+		lineageTag: 087e4936-46bd-4de6-a237-376c29db5779
+		summarizeBy: none
+		sourceColumn: event_id
+
+	column session_id
+		dataType: string
+		lineageTag: 6fb1feaf-9076-42fe-8d4c-5cb4923bae89
+		summarizeBy: none
+		sourceColumn: session_id
+
+	column ts
+		dataType: dateTime
+		lineageTag: 535a3e50-75d0-40ee-b548-c861a9f757ae
+		summarizeBy: none
+		sourceColumn: ts
+
+	column patient_ref
+		dataType: string
+		lineageTag: 0aa95564-5ef8-4d26-932f-d611f49047b7
+		summarizeBy: none
+		sourceColumn: patient_ref
+
+	column sex
+		dataType: string
+		lineageTag: 2672f151-b920-4907-bbce-1b4b3ec94899
+		summarizeBy: none
+		sourceColumn: sex
+
+	column age
+		dataType: double
+		lineageTag: 65341a94-3cfb-4c98-9312-f07f0118b5a0
+		summarizeBy: none
+		sourceColumn: age
+
+	column age_band
+		dataType: string
+		lineageTag: b2f29cc4-89b1-4533-abbf-81991a92fff0
+		summarizeBy: none
+		sourceColumn: age_band
+
+	column hgb
+		dataType: double
+		lineageTag: 62a45d84-8cf9-450e-aded-686305e7cbca
+		summarizeBy: none
+		sourceColumn: hgb
+
+	column mentzer_index
+		dataType: double
+		lineageTag: e3718943-42b7-4a60-b1cd-b751488a3edb
+		summarizeBy: none
+		sourceColumn: mentzer_index
+
+	column proba_anemie
+		dataType: double
+		lineageTag: 46aa838b-ddc3-483f-83c9-fbf4f1304aa6
+		summarizeBy: none
+		sourceColumn: proba_anemie
+
+	column prediction
+		dataType: int64
+		lineageTag: 6d48622f-f0e5-4b9d-8f17-2c79041c7733
+		summarizeBy: none
+		sourceColumn: prediction
+
+	column risk_band
+		dataType: string
+		lineageTag: 3b0c6fc0-3d4b-4565-b1e8-2652c15d83db
+		summarizeBy: none
+		sourceColumn: risk_band
+
+	column severity
+		dataType: string
+		lineageTag: b09b9ef8-b0d6-45ec-8e9d-b6694c7e774c
+		summarizeBy: none
+		sourceColumn: severity
+
+	column anemia_type
+		dataType: string
+		lineageTag: 00026da4-d84a-40f0-906d-67698d135a45
+		summarizeBy: none
+		sourceColumn: anemia_type
+
+	column recommended_action
+		dataType: string
+		lineageTag: 0fa4aecb-9ec6-443c-a72c-50d948635714
+		summarizeBy: none
+		sourceColumn: recommended_action
+
+	column urgency
+		dataType: string
+		lineageTag: 90019dae-bc9d-44b1-81f4-efb2b46b0cf2
+		summarizeBy: none
+		sourceColumn: urgency
+
+	column urgency_sla_h
+		dataType: int64
+		lineageTag: 2367f9f2-1d80-46d4-b2e8-27c84877cb9d
+		summarizeBy: none
+		sourceColumn: urgency_sla_h
+
+	column handled_within_h
+		dataType: double
+		lineageTag: 2699e561-ee1a-4409-9b7f-3ac1e4c84051
+		summarizeBy: none
+		sourceColumn: handled_within_h
+
+	column sla_met
+		dataType: int64
+		lineageTag: df8a610f-98a3-4f4d-9879-118e288cc5db
+		summarizeBy: none
+		sourceColumn: sla_met
+
+	column cost_avoided
+		dataType: double
+		lineageTag: 84ed62b1-f55b-4dfd-8a84-be98c532a22f
+		summarizeBy: none
+		sourceColumn: cost_avoided
+
+	column clinician_decision
+		dataType: string
+		lineageTag: 972b38ab-623a-4b39-9366-ad09ed811c10
+		summarizeBy: none
+		sourceColumn: clinician_decision
+
+	column override_flag
+		dataType: int64
+		lineageTag: 29b713ee-4227-42c6-a673-d09c65c23d45
+		summarizeBy: none
+		sourceColumn: override_flag
+
+	measure Consultations = COUNTROWS(vw_patient_ledger)
+		formatString: 0
+		lineageTag: ddfa4f4d-f36b-454a-b36b-8c588b473e36
+
+	measure CasDetectes = SUM(vw_patient_ledger[prediction])
+		formatString: 0
+		lineageTag: a3e01897-2f75-4c3f-a366-20a4ab38b7c5
+
+	measure TauxDetection = DIVIDE([CasDetectes], [Consultations])
+		formatString: 0.0%
+		lineageTag: d445adc6-1edc-43f4-b295-4a21eede4630
+
+	measure CoutEvite = SUM(vw_patient_ledger[cost_avoided])
+		formatString: 0
+		lineageTag: af55e75b-b3d9-491f-8c14-d0a3b570ef15
+
+	measure TauxConformiteSLA = AVERAGE(vw_patient_ledger[sla_met])
+		formatString: 0.0%
+		lineageTag: c6702ca4-beca-464b-a9d0-c6e9c7da092a
+
+	measure TauxOverride = AVERAGE(vw_patient_ledger[override_flag])
+		formatString: 0.0%
+		lineageTag: 30618add-1811-44c4-a162-7091b56a4a1c
+
+	measure DelaiPriseEnChargeH = AVERAGE(vw_patient_ledger[handled_within_h])
+		formatString: 0.0
+		lineageTag: 2d448e50-be26-4eb9-8870-2c9cb61d8084
+
+	partition vw_patient_ledger = m
+		mode: import
+		source =
+			let
+			    Source = PostgreSQL.Database("localhost:5432", "anemia"),
+			    data = Source{[Schema="public", Item="vw_patient_ledger"]}[Data]
+			in
+			    data
+

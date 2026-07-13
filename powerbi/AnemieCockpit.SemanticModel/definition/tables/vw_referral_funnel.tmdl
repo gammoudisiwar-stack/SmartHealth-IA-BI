@@ -1,0 +1,30 @@
+table vw_referral_funnel
+	lineageTag: 0bdd424c-f2a1-4751-9c6a-35b9076ae196
+
+	column etape
+		dataType: string
+		lineageTag: 8c73c4af-8439-4133-8e54-26118b502b3c
+		summarizeBy: none
+		sourceColumn: etape
+
+	column n_patients
+		dataType: int64
+		lineageTag: 6393871c-da01-4b9d-b48d-f957de201ee4
+		summarizeBy: none
+		sourceColumn: n_patients
+
+	column ordre
+		dataType: int64
+		lineageTag: f078893e-51ae-42cb-b284-4cbda55b10e7
+		summarizeBy: none
+		sourceColumn: ordre
+
+	partition vw_referral_funnel = m
+		mode: import
+		source =
+			let
+			    Source = PostgreSQL.Database("localhost:5432", "anemia"),
+			    data = Source{[Schema="public", Item="vw_referral_funnel"]}[Data]
+			in
+			    data
+

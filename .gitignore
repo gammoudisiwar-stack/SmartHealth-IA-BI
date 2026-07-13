@@ -1,0 +1,20 @@
+# Environnement virtuel Python
+.venv/
+venv/
+
+# Secrets / configuration locale
+.env
+
+# Caches Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Power BI (fichiers locaux temporaires)
+**/.pbi/
+*.pbix.tmp
+
+# Système
+Thumbs.db
+.DS_Store

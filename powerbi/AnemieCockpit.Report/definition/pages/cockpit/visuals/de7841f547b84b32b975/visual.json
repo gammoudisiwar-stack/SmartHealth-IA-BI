@@ -1,0 +1,108 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "de7841f547b84b32b975",
+  "position": {
+    "x": 652,
+    "y": 436,
+    "z": 8,
+    "width": 612,
+    "height": 268,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_equity_gap"
+                    }
+                  },
+                  "Property": "bande_age"
+                }
+              },
+              "queryRef": "vw_equity_gap.bande_age",
+              "nativeQueryRef": "bande_age"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_equity_gap"
+                    }
+                  },
+                  "Property": "sexe"
+                }
+              },
+              "queryRef": "vw_equity_gap.sexe",
+              "nativeQueryRef": "sexe"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_equity_gap"
+                        }
+                      },
+                      "Property": "taux_detection_ia"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(vw_equity_gap.taux_detection_ia)",
+              "nativeQueryRef": "taux_detection_ia"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_equity_gap"
+                        }
+                      },
+                      "Property": "taux_regle_oms"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(vw_equity_gap.taux_regle_oms)",
+              "nativeQueryRef": "taux_regle_oms"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_equity_gap"
+                        }
+                      },
+                      "Property": "ecart_ia_oms"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(vw_equity_gap.ecart_ia_oms)",
+              "nativeQueryRef": "ecart_ia_oms"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

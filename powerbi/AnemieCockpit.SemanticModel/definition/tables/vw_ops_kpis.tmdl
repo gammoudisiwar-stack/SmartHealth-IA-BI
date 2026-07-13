@@ -1,0 +1,36 @@
+table vw_ops_kpis
+	lineageTag: b9bf0704-8247-430d-84df-0b3fc3066386
+
+	column metrique
+		dataType: string
+		lineageTag: 509ca44d-1702-43f8-b117-86bb36b7f8fb
+		summarizeBy: none
+		sourceColumn: metrique
+
+	column valeur
+		dataType: double
+		lineageTag: d3a8004b-9da3-4290-abe9-99a7bd15589f
+		summarizeBy: none
+		sourceColumn: valeur
+
+	column unite
+		dataType: string
+		lineageTag: c5e06af2-7b94-4951-a898-a21b4df849cb
+		summarizeBy: none
+		sourceColumn: unite
+
+	column note
+		dataType: string
+		lineageTag: 16e2ecf9-93e7-41ef-b11a-85298956e9c6
+		summarizeBy: none
+		sourceColumn: note
+
+	partition vw_ops_kpis = m
+		mode: import
+		source =
+			let
+			    Source = PostgreSQL.Database("localhost:5432", "anemia"),
+			    data = Source{[Schema="public", Item="vw_ops_kpis"]}[Data]
+			in
+			    data
+

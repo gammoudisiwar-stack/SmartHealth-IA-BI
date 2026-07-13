@@ -1,0 +1,36 @@
+table vw_sla_by_urgency
+	lineageTag: 402d0bc8-73e5-4b8c-873a-fb1742cf9ab9
+
+	column urgency
+		dataType: string
+		lineageTag: a194183a-63e7-44ec-8d2c-8ba5b06d3224
+		summarizeBy: none
+		sourceColumn: urgency
+
+	column n_patients
+		dataType: int64
+		lineageTag: d7bdce6c-3e63-4451-8b00-5356c0598b65
+		summarizeBy: none
+		sourceColumn: n_patients
+
+	column taux_sla
+		dataType: double
+		lineageTag: a6c0b7aa-8f96-444f-a633-3bdb4234ea36
+		summarizeBy: none
+		sourceColumn: taux_sla
+
+	column delai_moyen_h
+		dataType: double
+		lineageTag: 8a017599-d37a-4fd8-96d3-cf3782235500
+		summarizeBy: none
+		sourceColumn: delai_moyen_h
+
+	partition vw_sla_by_urgency = m
+		mode: import
+		source =
+			let
+			    Source = PostgreSQL.Database("localhost:5432", "anemia"),
+			    data = Source{[Schema="public", Item="vw_sla_by_urgency"]}[Data]
+			in
+			    data
+

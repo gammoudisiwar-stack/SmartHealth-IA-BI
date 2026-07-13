@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "677f66fabbc14663b0ee",
+  "position": {
+    "x": 16,
+    "y": 436,
+    "z": 7,
+    "width": 620,
+    "height": 268,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_agent_daily"
+                    }
+                  },
+                  "Property": "jour"
+                }
+              },
+              "queryRef": "vw_agent_daily.jour",
+              "nativeQueryRef": "jour"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_agent_daily"
+                        }
+                      },
+                      "Property": "consultations"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(vw_agent_daily.consultations)",
+              "nativeQueryRef": "consultations"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+# Dépendances Python du projet (environnement vérifié, Python 3.11).
+tensorflow==2.21.0
+shap==0.51.0
+seaborn==0.13.2
+scikit-learn==1.9.0
+pandas==3.0.3
+numpy==2.4.6
+openpyxl==3.1.5
+matplotlib==3.11.0
+joblib==1.5.3
+streamlit>=1.40
+
+# Agent conversationnel (ReAct) + mémoire de threads persistée
+langchain>=1.0.0a1
+langgraph>=0.2.60
+langgraph-checkpoint-sqlite>=2.0.0
+langchain-openai>=0.2.0
+openai>=1.50
+
+# Océrisation des rapports de laboratoire (téléversement utilisateur)
+azure-ai-documentintelligence>=1.0.0
+
+# Chargement des clés depuis .env
+python-dotenv>=1.0
+
+# Base PostgreSQL (KPI métier + mémoire de threads de l'agent)
+psycopg[binary]>=3.2
+langgraph-checkpoint-postgres>=2.0
+
+# Notebook de fine-tuning (exécution + édition)
+nbconvert>=7.0
+ipykernel>=6.0
